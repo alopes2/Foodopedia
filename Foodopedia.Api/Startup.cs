@@ -45,6 +45,8 @@ namespace Foodopedia.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseGlobalErrorHandling();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
