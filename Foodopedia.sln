@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foodopedia.Services", "Food
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foodopedia.Core", "Foodopedia.Core\Foodopedia.Core.csproj", "{D0C98FE8-D88C-4E40-BDF0-010EE4EE411B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foodopedia.Data", "Foodopedia.Data\Foodopedia.Data.csproj", "{55017E35-4F75-46E9-B480-09582392E85C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foodopedia.OpenFoodApi", "Foodopedia.OpenFoodApi\Foodopedia.OpenFoodApi.csproj", "{6A0785A5-C532-48A0-9C02-A5F55361729F}"
 EndProject
 Global
