@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Foodopedia.Services\Foodopedia.Services.csproj" />
+    <ProjectReference Include="..\Foodopedia.Data\Foodopedia.Data.csproj" />
+    <ProjectReference Include="..\Foodopedia.Core\Foodopedia.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+</Project>
