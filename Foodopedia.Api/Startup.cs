@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreRateLimit;
 using FluentValidation.AspNetCore;
 using Foodopedia.Api.Extensions;
 using Foodopedia.Api.Settings;
@@ -10,6 +11,7 @@ using Foodopedia.OpenFoodFacts;
 using Foodopedia.Services.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -51,7 +53,11 @@ namespace Foodopedia.Api
                 options.BaseAddress = new Uri(_openFoodFactsSettings.BaseAddress);
             });
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddServices();
+
+            services.AddRateLimit(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +71,8 @@ namespace Foodopedia.Api
             app.UseGlobalErrorHandling();
 
             app.UseHttpsRedirection();
+            
+	        app.UseIpRateLimiting();
 
             app.UseRouting();
 
