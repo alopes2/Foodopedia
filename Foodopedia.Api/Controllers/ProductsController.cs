@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Foodopedia.Api.Resources;
 using Foodopedia.Core.Clients;
 using Foodopedia.Core.Exceptions;
@@ -17,8 +18,10 @@ namespace Foodopedia.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IOpenFoodFactsService _service;
-        public ProductsController(IOpenFoodFactsService service)
+        private readonly IMapper _mapper;
+        public ProductsController(IOpenFoodFactsService service, IMapper mapper)
         {
+            _mapper = mapper;
             _service = service;
         }
 
@@ -27,11 +30,7 @@ namespace Foodopedia.Api.Controllers
         {
             var products = await _service.GetProductsByIngredient(queryParams.Ingredient, queryParams.Limit);
 
-            var producResources = products.Select(p => new ProductResource
-            {
-                Name = p.Name,
-                Ingredients = p.Ingredients
-            });
+            var producResources = _mapper.Map<IEnumerable<ProductResource>>(products);
 
             return Ok(producResources);
         }

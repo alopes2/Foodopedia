@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreRateLimit;
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using Foodopedia.Api.Extensions;
 using Foodopedia.Api.Settings;
@@ -58,6 +59,8 @@ namespace Foodopedia.Api
             services.AddServices();
 
             services.AddRateLimit(Configuration);
+
+            services.AddAutoMapper(typeof(Startup), typeof(OpenFoodFactsClient));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,8 +74,8 @@ namespace Foodopedia.Api
             app.UseGlobalErrorHandling();
 
             app.UseHttpsRedirection();
-            
-	        app.UseIpRateLimiting();
+
+            app.UseIpRateLimiting();
 
             app.UseRouting();
 

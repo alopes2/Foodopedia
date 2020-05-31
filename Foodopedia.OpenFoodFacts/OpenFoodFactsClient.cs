@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using AutoMapper;
 using Foodopedia.Core.Clients;
 using Foodopedia.Core.Exceptions;
 using Foodopedia.Core.Extensions;
@@ -15,9 +16,11 @@ namespace Foodopedia.OpenFoodFacts
     public class OpenFoodFactsClient : IOpenFoodFactsClient
     {
         private readonly HttpClient _client;
+        private readonly IMapper _mapper;
 
-        public OpenFoodFactsClient(HttpClient client)
+        public OpenFoodFactsClient(HttpClient client, IMapper mapper)
         {
+            _mapper = mapper;
             _client = client;
         }
 
@@ -30,11 +33,9 @@ namespace Foodopedia.OpenFoodFacts
 
             var result = await response.ParseAsAsync<SearchResponse>();
 
-            return result.products.Select(p => new CoreModels.Product
-            {
-                Name = p.product_name,
-                Ingredients = p.ingredients.Select(i => i.text).ToList()
-            });
+            var products = _mapper.Map<IEnumerable<CoreModels.Product>>(result.products);
+            
+            return products;
         }
     }
 }
