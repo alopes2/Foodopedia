@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Foodopedia.Services\Foodopedia.Services.csproj" />
-    <ProjectReference Include="..\Foodopedia.OpenFoodApi\Foodopedia.OpenFoodApi.csproj" />
+    <ProjectReference Include="..\Foodopedia.OpenFoodFacts\Foodopedia.OpenFoodFacts.csproj" />
     <ProjectReference Include="..\Foodopedia.Core\Foodopedia.Core.csproj" />
   </ItemGroup>
 

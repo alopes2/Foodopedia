@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Foodopedia.Api.Extensions;
 using Foodopedia.Api.Settings;
+using Foodopedia.Core.Clients;
+using Foodopedia.OpenFoodFacts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,6 +21,7 @@ namespace Foodopedia.Api
     public class Startup
     {
         private AppSettings _appSettings;
+        private OpenFoodFactsSettings _openFoodFactsSettings;
 
         public Startup(IConfiguration configuration)
         {
@@ -31,10 +34,16 @@ namespace Foodopedia.Api
         public void ConfigureServices(IServiceCollection services)
         {
             _appSettings = Configuration.GetSection("App").Get<AppSettings>();
+            _openFoodFactsSettings = Configuration.GetSection("OpenFoodFacts").Get<OpenFoodFactsSettings>();
 
             services.AddControllers();
 
             services.AddSwagger(_appSettings);
+
+            services.AddHttpClient<IOpenFoodFactsClient, OpenFoodFactsClient>(options => 
+            {
+                options.BaseAddress = new Uri(_openFoodFactsSettings.BaseAddress);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
