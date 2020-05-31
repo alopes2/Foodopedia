@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Foodopedia.Core.Clients;
 using Foodopedia.Core.Exceptions;
+using Foodopedia.Core.Extensions;
 using Foodopedia.OpenFoodFacts.Models;
 using CoreModels = Foodopedia.Core.Models;
 
@@ -27,8 +28,7 @@ namespace Foodopedia.OpenFoodFacts
 
             response.EnsureSuccessStatusCode();
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            var result = JsonSerializer.Deserialize<SearchResponse>(responseString);
+            var result = await response.ParseAsAsync<SearchResponse>();
 
             return result.products.Select(p => new CoreModels.Product
             {
