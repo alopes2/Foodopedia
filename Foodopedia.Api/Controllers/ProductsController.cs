@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Foodopedia.Api.Resources;
 using Foodopedia.Core.Clients;
 using Foodopedia.Core.Exceptions;
+using Foodopedia.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -15,16 +16,16 @@ namespace Foodopedia.Api.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IOpenFoodFactsClient _client;
-        public ProductsController(IOpenFoodFactsClient client)
+        private readonly IOpenFoodFactsService _service;
+        public ProductsController(IOpenFoodFactsService service)
         {
-            _client = client;
+            _service = service;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductResource>>> GetProducts(string ingredient, int limit)
         {
-            var products = await _client.GetProductsByIngredient(ingredient, limit);
+            var products = await _service.GetProductsByIngredient(ingredient, limit);
 
             var producResources = products.Select(p => new ProductResource
             {

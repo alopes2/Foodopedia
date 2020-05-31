@@ -6,6 +6,7 @@ using Foodopedia.Api.Extensions;
 using Foodopedia.Api.Settings;
 using Foodopedia.Core.Clients;
 using Foodopedia.OpenFoodFacts;
+using Foodopedia.Services.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,6 +45,8 @@ namespace Foodopedia.Api
             {
                 options.BaseAddress = new Uri(_openFoodFactsSettings.BaseAddress);
             });
+
+            services.AddServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
