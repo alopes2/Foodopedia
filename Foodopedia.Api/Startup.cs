@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 using Foodopedia.Api.Extensions;
 using Foodopedia.Api.Settings;
 using Foodopedia.Core.Clients;
@@ -37,11 +38,15 @@ namespace Foodopedia.Api
             _appSettings = Configuration.GetSection("App").Get<AppSettings>();
             _openFoodFactsSettings = Configuration.GetSection("OpenFoodFacts").Get<OpenFoodFactsSettings>();
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(config =>
+                {
+                    config.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
+                });
 
             services.AddSwagger(_appSettings);
 
-            services.AddHttpClient<IOpenFoodFactsClient, OpenFoodFactsClient>(options => 
+            services.AddHttpClient<IOpenFoodFactsClient, OpenFoodFactsClient>(options =>
             {
                 options.BaseAddress = new Uri(_openFoodFactsSettings.BaseAddress);
             });

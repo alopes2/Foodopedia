@@ -23,9 +23,9 @@ namespace Foodopedia.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductResource>>> GetProducts(string ingredient, int limit)
+        public async Task<ActionResult<IEnumerable<ProductResource>>> GetProducts([FromQuery] GetProductsQueryResource queryParams)
         {
-            var products = await _service.GetProductsByIngredient(ingredient, limit);
+            var products = await _service.GetProductsByIngredient(queryParams.Ingredient, queryParams.Limit);
 
             var producResources = products.Select(p => new ProductResource
             {
