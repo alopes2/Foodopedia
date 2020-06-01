@@ -6,6 +6,7 @@ using AspNetCoreRateLimit;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Foodopedia.Api.Extensions;
+using Foodopedia.Api.Metrics;
 using Foodopedia.Api.Settings;
 using Foodopedia.Core.Clients;
 using Foodopedia.OpenFoodFacts;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Prometheus;
 
 namespace Foodopedia.Api
 {
@@ -53,7 +55,9 @@ namespace Foodopedia.Api
             {
                 options.BaseAddress = new Uri(_openFoodFactsSettings.BaseAddress);
             });
-
+            
+            services.AddSingleton<IMetricsService, MetricsService>();
+            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddServices();
@@ -79,11 +83,14 @@ namespace Foodopedia.Api
 
             app.UseRouting();
 
+            app.UseMetrics();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapMetrics();
             });
 
             app.UseSwaggerConfiguration(_appSettings);
