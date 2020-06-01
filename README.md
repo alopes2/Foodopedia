@@ -1,4 +1,4 @@
-# Foodopedia
+# Foodopedia [![Build Status](https://travis-ci.com/alopes2/Foodopedia.svg?token=Ez5vcDho5XVCHGCQaAoh&branch=master)](https://travis-ci.com/alopes2/Foodopedia) [![codecov](https://codecov.io/gh/alopes2/Foodopedia/branch/master/graph/badge.svg?token=KJ80GLW8IS)](https://codecov.io/gh/alopes2/Foodopedia)
 
 Gateway API to fetch food/recipes from Open Food API.
 
