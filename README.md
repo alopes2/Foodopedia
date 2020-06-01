@@ -6,7 +6,7 @@ Gateway API to fetch food/recipes from Open Food API.
 
 * .NET Core SDK 3.1.300
 * Microsoft SQL Server 2019 - Developer Edition
-* Docker (For container image management)
+* Docker (For container image management and application running)
 
 ## Setup
 
@@ -21,15 +21,33 @@ If it is not, navigate to the `src` folder and use it as the work directory in y
 
 Set your .NET Core environment to Development by setting the Enviroement Variable `ASPNETCORE_ENVIRONMENT` to `Development`.
 
-### Dependencies restore
+### Application run
+
+To run the application, please have `docker` installed.
+
+Now you can just run:
+
+```
+docker-compose up
+```
+
+This will automatically build and run our application in a docker container.
+
+You can access the application from:
+
+```
+http://localhost:5000
+```
+
+This routes the local port `5000` to the port `80` inside the docker container.
+
+### Application standalone run
 
 Restore all packages with:
 
 ```
 dotnet restore
 ```
-
-### Application run
 
 To run the application just run the following command:
 
@@ -61,6 +79,18 @@ This is our business logic layer.
 
 This is our application’s foundation, it will hold our contracts (interfaces, …), our models and everything else that is essential for our application to work.
 
-### Foodopedia.OpenFoodApi
+### Foodopedia.OpenFoodFacts
 
-This is where our connection to Open Food API will be held.
+This is where our connection to Open Food Facts API will be held.
+
+### Foodopedia.UnitTests
+
+Here are the **Unit Tests** for our projects. To run them just go to the `src` folder and run:
+
+`dotnet test`
+
+It is also set to generate a code coverage file with `coverlet` . To generate a coverage file just run:
+
+`dotnet test ./src/Foodopedia.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover`
+
+This will generate a `coverage.opencover.xml` file in the `Foodopedia.UnitTests` project folder.

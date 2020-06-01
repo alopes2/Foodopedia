@@ -6,6 +6,7 @@ COPY src/Foodopedia.Api/*.csproj ./Foodopedia.Api/
 COPY src/Foodopedia.Core/*.csproj ./Foodopedia.Core/
 COPY src/Foodopedia.Services/*.csproj ./Foodopedia.Services/
 COPY src/Foodopedia.OpenFoodFacts/*.csproj ./Foodopedia.OpenFoodFacts/
+COPY src/Foodopedia.UnitTests/*.csproj ./Foodopedia.UnitTests/
 COPY src/*.sln ./
 RUN dotnet restore
 
