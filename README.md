@@ -5,7 +5,6 @@ Gateway API to fetch food/recipes from Open Food API.
 ## Requirements
 
 * .NET Core SDK 3.1.300
-* Microsoft SQL Server 2019 - Developer Edition
 * Docker (For container image management and application running)
 
 ## Setup
